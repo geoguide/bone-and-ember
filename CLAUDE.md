@@ -51,6 +51,10 @@ Geo is a designer and wants to see the design before code gets written. For any 
 2. Get Geo's go-ahead, then implement in the smallest slice that can be tested in game.
 3. After he's tested it in game, note what changed in the spec.
 
+## Current design
+
+`docs/design/001-always-on-hud.md` is the first real feature: a new always-on HUD (health with food segments, stamina, status chips). Read it before touching HUD code. Build it in the slices listed there, one at a time, testing each in game.
+
 ## Current state
 
 - v0.1.0: hello world. Shows "ValheimUI 0.1.0 is running" when you spawn. It has **not been compiled yet**: the first job is `dotnet build` and fixing whatever breaks (reference names, publicizer package version, the `Player.OnSpawned` / `Player.Message` signatures against the decompiled code).

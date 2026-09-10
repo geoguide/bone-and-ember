@@ -14,6 +14,8 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>portable</DebugType>
+    <!-- Valheim ships netstandard 2.1, the net462 reference pack ships 2.0. Mono resolves it fine at runtime; silence the wall of text. -->
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
     <!-- Don't compile the decompiled game code or tool scripts. -->
     <DefaultItemExcludes>$(DefaultItemExcludes);reference/**;tools/**;docs/**</DefaultItemExcludes>
 

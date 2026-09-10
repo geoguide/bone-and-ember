@@ -1,0 +1,10 @@
+bin/
+obj/
+local.props
+.install-log.txt
+# Decompiled game code: never commit or share
+reference/decompiled/
+.DS_Store
+*.user
+.vs/
+.idea/

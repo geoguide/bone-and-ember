@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Machine-specific paths, written by tools/setup-dev.sh. Not committed. -->
+  <Import Project="local.props" Condition="Exists('local.props')" />
+
+  <PropertyGroup>
+    <!-- Valheim runs on Unity's Mono runtime, which loads .NET Framework 4.x assemblies. -->
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>ValheimUI</AssemblyName>
+    <RootNamespace>ValheimUI</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugType>portable</DebugType>
+    <!-- Don't compile the decompiled game code or tool scripts. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);reference/**;tools/**;docs/**</DefaultItemExcludes>
+
+    <ValheimDir Condition="'$(ValheimDir)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/Valheim</ValheimDir>
+    <ManagedDir Condition="'$(ManagedDir)' == ''">$(ValheimDir)/valheim.app/Contents/Resources/Data/Managed</ManagedDir>
+    <BepInExDir>$(ValheimDir)/BepInEx</BepInExDir>
+    <PluginDeployDir>$(BepInExDir)/plugins/$(AssemblyName)</PluginDeployDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Lets the .NET SDK on macOS compile against .NET Framework 4.6.2. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net462" Version="1.0.3" PrivateAssets="all" />
+    <!-- Makes the game's private fields and methods accessible at compile time. -->
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.*" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Mod loader + patching library (installed into the game by tools/install-game-mods.sh) -->
+    <Reference Include="$(BepInExDir)/core/BepInEx.dll" Private="false" />
+    <Reference Include="$(BepInExDir)/core/0Harmony.dll" Private="false" />
+
+    <!-- Valheim's own code, publicized -->
+    <Reference Include="$(ManagedDir)/assembly_valheim.dll" Publicize="true" Private="false" />
+    <Reference Include="$(ManagedDir)/assembly_guiutils.dll" Publicize="true" Private="false" />
+    <Reference Include="$(ManagedDir)/assembly_utils.dll" Publicize="true" Private="false" />
+
+    <!-- Unity engine + UI -->
+    <Reference Include="$(ManagedDir)/UnityEngine.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.UI.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.UIModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.AnimationModule.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/Unity.TextMeshPro.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="CheckValheimPaths" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(ManagedDir)/assembly_valheim.dll')" Text="Valheim not found at '$(ManagedDir)'. Run tools/setup-dev.sh to write local.props." />
+    <Error Condition="!Exists('$(BepInExDir)/core/BepInEx.dll')" Text="BepInEx not installed in '$(ValheimDir)'. Run tools/install-game-mods.sh." />
+  </Target>
+
+  <!-- After every build, drop the mod into the game so the next launch picks it up. -->
+  <Target Name="DeployToGame" AfterTargets="Build">
+    <MakeDir Directories="$(PluginDeployDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginDeployDir)" />
+    <Message Importance="high" Text="Deployed $(TargetFileName) -> $(PluginDeployDir)" />
+  </Target>
+
+</Project>

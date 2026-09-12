@@ -15,7 +15,7 @@ namespace BoneAndEmber
     {
         public const string ModGuid = "com.geo.boneandember";
         public const string ModName = "Bone & Ember";
-        public const string ModVersion = "0.1.0";
+        public const string ModVersion = "0.1.1";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> ShowWelcome;

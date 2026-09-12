@@ -74,9 +74,23 @@ dotnet build          # compiles and copies the DLL into BepInEx/plugins/
 | Command | What it does |
 |---|---|
 | `dotnet build` | Compile and copy the mod into the game |
-| `tools/package.sh` | Build Release and zip a release artifact into `dist/` |
+| `tools/package.sh` | Build Release and zip a GitHub release artifact into `dist/` |
+| `tools/package-thunderstore.sh` | Build Release and zip a Thunderstore package into `dist/` |
 | `tools/log.sh [pattern]` | Search the BepInEx log |
 | `tools/decompile.sh` | Decompile the game locally for reference |
+
+### Releasing
+
+The two package scripts produce different shapes on purpose. `package.sh` makes
+a plain zip holding the DLL and the install guide, for attaching to a GitHub
+release. `package-thunderstore.sh` makes the layout Thunderstore requires:
+`manifest.json`, `icon.png` and `README.md` at the root, with the DLL under
+`plugins/`.
+
+Bump `ModVersion` in `src/Plugin.cs` and `version_number` in
+`thunderstore/manifest.json` together. The Thunderstore script refuses to build
+if they disagree, because a version number there is permanent and cannot be
+reused even after a deletion.
 
 ### A note on the decompiled game code
 

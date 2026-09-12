@@ -1,0 +1,9 @@
+{
+  "name": "BoneAndEmber",
+  "version_number": "0.1.0",
+  "website_url": "https://github.com/geoguide/bone-and-ember",
+  "description": "Client-only UI overhaul. Always-on HUD, stand-still item sense, death compass, inventory and one-press repair.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2350"
+  ]
+}

@@ -43,7 +43,12 @@ namespace BoneAndEmber
         // whole set along until the grace period runs out.
         private const float DropOffScale = 1.25f;
 
-        private const float FadeInMs = 120f;
+        // Quick in, slow out. 120ms was about seven frames, which read as a pop
+        // rather than a fade, and Tween eases out, so a short fade-in is
+        // front-loaded on top of that: it reaches three quarters of full alpha
+        // by the halfway point. 260ms is still a sixth of the decay on the way
+        // out, so markers arrive softly without feeling sluggish.
+        private const float FadeInMs = 260f;
 
         // The backing is grown this many pixels past the icon on every side.
         private const int BackingPad = 2;

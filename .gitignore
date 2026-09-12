@@ -8,3 +8,5 @@ reference/decompiled/
 *.user
 .vs/
 .idea/
+
+dist/

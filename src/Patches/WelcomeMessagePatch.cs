@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace ValheimUI.Patches
+namespace BoneAndEmber.Patches
 {
     // Hello world: shows a center-screen message when your character spawns.
     // Delete this once the mod does something real.

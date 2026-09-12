@@ -6,8 +6,8 @@
   <PropertyGroup>
     <!-- Valheim runs on Unity's Mono runtime, which loads .NET Framework 4.x assemblies. -->
     <TargetFramework>net462</TargetFramework>
-    <AssemblyName>ValheimUI</AssemblyName>
-    <RootNamespace>ValheimUI</RootNamespace>
+    <AssemblyName>BoneAndEmber</AssemblyName>
+    <RootNamespace>BoneAndEmber</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -45,6 +45,10 @@
     <!-- Unity engine + UI -->
     <Reference Include="$(ManagedDir)/UnityEngine.dll" Private="false" />
     <Reference Include="$(ManagedDir)/UnityEngine.CoreModule.dll" Private="false" />
+    <!-- OverlapSphere and Raycast for the sense scan (006 slice 1) -->
+    <Reference Include="$(ManagedDir)/UnityEngine.PhysicsModule.dll" Private="false" />
+    <!-- JsonUtility, for the recovered-deaths state file (002 slice 4) -->
+    <Reference Include="$(ManagedDir)/UnityEngine.JSONSerializeModule.dll" Private="false" />
     <Reference Include="$(ManagedDir)/UnityEngine.UI.dll" Private="false" />
     <Reference Include="$(ManagedDir)/UnityEngine.UIModule.dll" Private="false" />
     <Reference Include="$(ManagedDir)/UnityEngine.TextRenderingModule.dll" Private="false" />
@@ -52,6 +56,7 @@
     <Reference Include="$(ManagedDir)/UnityEngine.IMGUIModule.dll" Private="false" />
     <Reference Include="$(ManagedDir)/UnityEngine.AnimationModule.dll" Private="false" />
     <Reference Include="$(ManagedDir)/Unity.TextMeshPro.dll" Private="false" />
+    <Reference Include="$(ManagedDir)/UnityEngine.TextCoreFontEngineModule.dll" Private="false" />
   </ItemGroup>
 
   <Target Name="CheckValheimPaths" BeforeTargets="ResolveAssemblyReferences">

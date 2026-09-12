@@ -59,7 +59,7 @@ print_steam_step() {
   Then launch Valheim from Steam and load a single-player world. It worked if:
     - the wooden UI panels look different (that's Minimal UI)
     - F1 opens Configuration Manager, F7 opens UnityExplorer
-    - you see "ValheimUI ... is running" when you spawn (our own mod, if it built)
+    - you see "Bone & Ember ... is running" when you spawn (our own mod, if it built)
     - $BEPINEX_DIR/LogOutput.log exists and lists the plugins
 MSG
 }

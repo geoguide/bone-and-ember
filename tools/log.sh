@@ -5,4 +5,4 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 source "$HERE/lib.sh"
 LOG="$BEPINEX_DIR/LogOutput.log"
 [ -f "$LOG" ] || die "No log yet at $LOG. Launch the game once."
-if [ $# -gt 0 ]; then grep -n -i -E "$1" "$LOG"; else cat "$LOG"; fi
+if [ $# -gt 0 ] && [ -n "$1" ]; then grep -n -i -E "$1" "$LOG"; else cat "$LOG"; fi

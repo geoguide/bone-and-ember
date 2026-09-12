@@ -60,7 +60,7 @@ step "Decompiling game code into reference/decompiled (gitignored, never commit 
 step "Test build"
 if [ -f "$BEPINEX_DIR/core/BepInEx.dll" ]; then
   if (cd "$ROOT" && dotnet build -c Debug -v quiet -nologo); then
-    ok "Built and copied to BepInEx/plugins/ValheimUI"
+    ok "Built and copied to BepInEx/plugins/BoneAndEmber"
   else
     warn "Build failed. That's fine for now: first job for Claude Code is to fix it."
   fi

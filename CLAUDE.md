@@ -1,4 +1,4 @@
-# ValheimUI
+# Bone & Ember
 
 A client-only Valheim mod that overhauls the game's UI. Built by Geo (product designer + engineer, new to C# and Valheim modding, fluent in TypeScript/React). Explain C#, Unity, and Harmony concepts briefly inline the first time they come up.
 
@@ -15,11 +15,13 @@ A client-only Valheim mod that overhauls the game's UI. Built by Geo (product de
 - BepInEx only runs under Rosetta. Steam launch options must be: `/usr/bin/arch -x86_64 /bin/bash ./start_game_bepinex.sh %command%`. If the mod "does nothing", check this first.
 - Game folder: `~/Library/Application Support/Steam/steamapps/common/Valheim` (real paths are in `local.props`, written by `tools/setup-dev.sh`).
 - Game code lives in `valheim.app/Contents/Resources/Data/Managed/`, not `valheim_Data/Managed/` like Windows guides say.
+- Function keys on a Mac are media keys by default: in game it's **Fn+F1** for Configuration Manager and **Fn+F7** for UnityExplorer. Say "Fn+" when giving Geo hotkeys.
+- UnityExplorer opens on startup and grabs the keyboard (text fields stop working) until it's hidden with Fn+F7.
 - Don't use `[BepInProcess("valheim.exe")]`. The process isn't called that on Mac and the plugin would silently not load.
 
 ## Loop
 
-1. `dotnet build` compiles and copies `ValheimUI.dll` into `BepInEx/plugins/ValheimUI/` automatically.
+1. `dotnet build` compiles and copies `BoneAndEmber.dll` into `BepInEx/plugins/BoneAndEmber/` automatically.
 2. Ask Geo before launching the game. `tools/launch.sh` starts it via Steam and follows the log.
 3. `tools/log.sh [pattern]` greps `BepInEx/LogOutput.log`. Every change should log something you can check.
 4. Geo tests in a **single-player world**. The real target is a friend's dedicated server he can't access, so nothing may depend on server-side install.
@@ -53,8 +55,22 @@ Geo is a designer and wants to see the design before code gets written. For any 
 
 ## Current design
 
-`docs/design/001-always-on-hud.md` is the first real feature: a new always-on HUD (health with food segments, stamina, status chips). Read it before touching HUD code. Build it in the slices listed there, one at a time, testing each in game.
+Specs live in `docs/design/`. Read the one you're working on before touching code, and `001-notes-vanilla-hud.md` for how vanilla's HUD works.
+
+- `001-always-on-hud.md`: **shipped through slice 8** (health with food segments, stamina, status chips, low health state, loud moments, polish pass). Follow-ups may still be open in chat.
+- `002-waypoint-strip.md`: compass strip with death markers and corpse recovery tracking. In progress.
+- `003-inventory.md`: inventory overhaul plan. Research only so far.
+
+Design decisions are Geo's. Claude Code implements the spec as written and raises questions before deviating. Minimal UI is currently parked in `BepInEx/disabled/`; the coexist code stays but don't test against it.
+
+## Dev loop extras
+
+- `-console` is on the Steam launch options. Fn+F5 opens the console, `devcommands` unlocks vanilla cheats (`spawn`, `tod`, `env`, `god`, `heal`, `puke`, `clearstatus`, `addstatus`).
+- Our own dev commands (behind the DevCommands config toggle): `bae_status <name>` toggles a status effect, `bae_food` eats three test foods.
+- DevCommands also turns on extra logging, not just commands. The compass strip logs camera yaw every 2 seconds while it's on screen (`tools/log.sh compass`), which is how you tell "the math is wrong" from "nothing is being drawn".
+- One Claude Code session builds at a time. Research-only sessions writing separate docs can run in parallel.
+- 002 writes state to `BepInEx/config/BoneAndEmber.recovered-deaths.json` (which deaths you have collected, keyed by world and character). Delete it to make every death show as live again, which is how you re-test recovery without dying.
 
 ## Current state
 
-- v0.1.0: hello world. Shows "ValheimUI 0.1.0 is running" when you spawn. It has **not been compiled yet**: the first job is `dotnet build` and fixing whatever breaks (reference names, publicizer package version, the `Player.OnSpawned` / `Player.Message` signatures against the decompiled code).
+- v0.1.0 hello world verified Sept 2026. HUD (001) built and tested in game through slice 8. Whole loop proven: build, deploy, launch, log.

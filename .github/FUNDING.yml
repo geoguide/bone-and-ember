@@ -1,8 +1,7 @@
 # GitHub reads this file and puts a "Sponsor" button at the top of the repo.
 #
-# Nothing is live yet: every line below is commented out, so GitHub shows no
-# button. To turn it on, uncomment ONE line, put your username after the colon,
-# and push. That is the whole job.
+# Live: ko-fi.com/geoguide. Username only, never the full URL, GitHub builds
+# the link itself. Add another platform by uncommenting its line below.
 #
 #   ko_fi: geoguide              -> ko-fi.com/geoguide        (0% fee on tips)
 #   buy_me_a_coffee: geoguide    -> buymeacoffee.com/geoguide (~5% fee)
@@ -10,7 +9,7 @@
 #
 # Use the username only, not the full URL. GitHub builds the link itself.
 
-# ko_fi:
+ko_fi: geoguide
 # buy_me_a_coffee:
 # github: []
 # custom: []

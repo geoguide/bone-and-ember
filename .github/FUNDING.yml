@@ -1,0 +1,16 @@
+# GitHub reads this file and puts a "Sponsor" button at the top of the repo.
+#
+# Nothing is live yet: every line below is commented out, so GitHub shows no
+# button. To turn it on, uncomment ONE line, put your username after the colon,
+# and push. That is the whole job.
+#
+#   ko_fi: geoguide              -> ko-fi.com/geoguide        (0% fee on tips)
+#   buy_me_a_coffee: geoguide    -> buymeacoffee.com/geoguide (~5% fee)
+#   github: [geoguide]           -> needs enrolling at github.com/sponsors first
+#
+# Use the username only, not the full URL. GitHub builds the link itself.
+
+# ko_fi:
+# buy_me_a_coffee:
+# github: []
+# custom: []

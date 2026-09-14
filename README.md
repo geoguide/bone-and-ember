@@ -110,6 +110,20 @@ Issues and pull requests are welcome. Useful things to include in a bug report:
 
 Please do not include decompiled game code in issues or pull requests.
 
+<!-- SUPPORT SECTION: not live yet.
+     Once you have a Ko-fi or Buy Me a Coffee account, delete this comment
+     wrapper (this line and the closing arrow below), then replace YOURNAME.
+     Do the same in .github/FUNDING.yml to get the Sponsor button on the repo.
+
+## Support
+
+Bone & Ember is free and always will be. If it made your game better and you
+want to throw something in the hat, you can [buy me a coffee](https://ko-fi.com/YOURNAME).
+Entirely optional, and it gets you no special treatment: bug reports are just as
+welcome for free.
+
+-->
+
 ## License
 
 [MIT](LICENSE). Bundle it in a modpack if you like.
